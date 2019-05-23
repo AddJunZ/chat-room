@@ -1,0 +1,27 @@
+{
+  "name": "p2p-net",
+  "version": "1.0.0",
+  "description": "计网课设",
+  "main": "app.js",
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "koa-socket": "^4.4.0",
+    "nodemon": "^1.19.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AddJunZ/P2P-net.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AddJunZ/P2P-net/issues"
+  },
+  "homepage": "https://github.com/AddJunZ/P2P-net#readme"
+}

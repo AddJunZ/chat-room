@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Choose</title>
+</head>
+<body>
+    <div>已经成功登录</div>
+    <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script>
+    <script>
+        //其实是一种websocket？？
+        var socket = io('http://localhost:8080');
+        socket.on('connect',()=>{
+            //默认的连接事件
+            console.log('登录成功');
+
+            //连接后触发更新代码
+            // socket.emit('login');
+        })
+
+
+
+
+        //在这边其实要写很多关于socket的代码的
+    </script>
+</body>
+</html>
