@@ -8,6 +8,7 @@
     "koa-better-body": "^3.0.4",
     "koa-ejs": "^4.2.0",
     "koa-router": "^7.4.0",
+    "koa-session": "^5.12.0",
     "koa-socket": "^4.4.0",
     "nodemon": "^1.19.0"
   },

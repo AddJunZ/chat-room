@@ -7,16 +7,25 @@ const io = new IO();
 const render = require('koa-ejs');//模板
 const path = require('path');//为了写模板的路径引入的
 const body = require('koa-better-body');
+const session = require('koa-session');//挂session
 
+server.keys = ['AddJunZ'];
+
+//上传文件的制定路径
 server.use(body({
     uploadDir:'./static/upload'
 }))
+
+
+
+//使用session，配置为null
+server.use(session(null,server));
 
 //这样一挂后，路由里都能使用了？
 render(server,{
     root:path.join(__dirname,'views'),
     layout:false,
-    viewExt:'html',
+    viewExt:'ejs',
     cache:false,
     debug:false
 })

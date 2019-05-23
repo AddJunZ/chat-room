@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Choose</title>
+    <style>
+        .bold{
+            font-weight: bolder;
+        }
+    </style>
 </head>
 <body>
-    <div>已经成功登录</div>
+    <div>当前在线人数：<span class="bold" id="active-num"></span></div>
+    <div><span class="bold" id="username"><%=username%></span>已经成功登录</div>
     <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script>
     <script>
         //其实是一种websocket？？
@@ -18,6 +24,10 @@
 
             //连接后触发更新代码
             // socket.emit('login');
+        })
+        socket.on('disconnect',()=>{
+            //默认的断开连接事件，这里用了关闭服务器测试可以触发的
+            console.log('断开链接');
         })
 
 
