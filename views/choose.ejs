@@ -27,10 +27,13 @@
                 username:username
             });
         })
-        socket.on('disconnect',()=>{
-            //默认的断开连接事件，这里用了关闭服务器测试可以触发的
-            console.log('断开链接');
-        })
+        // socket.on('disconnect',()=>{
+        //     //默认的断开连接事件，这里用了关闭服务器测试可以触发的，但关掉浏览器不触发？？
+        //     console.log('断开链接');
+        //     socket.emit('exit',{
+        //         username:username
+        //     })
+        // })
         //有人登录，同步在线人数，data应该传的是在线的用户数据数组
         socket.on('online',data=>{
             //同步在线人数

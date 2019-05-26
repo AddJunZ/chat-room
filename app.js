@@ -24,7 +24,7 @@ const CONFIG = {
     key:'AddJunZ',
     maxAge:1800000
 }
-//使用session，配置为null
+//使用session，配置项为CONFIG
 server.use(session(CONFIG,server));
 
 
@@ -59,6 +59,9 @@ io.use(async (ctx, next) => {
 
 //在这里监听html触发的事件
 //登录后就跳到聊天界面
+server.io.on('connection',ctx=>{
+    console.log('连接到客户端')
+})
 server.io.on('login',(ctx,data)=>{
     console.log('login',data);
     // console.log('目前的session',ctx.session)    不是登陆的是没有的//???
@@ -67,8 +70,34 @@ server.io.on('login',(ctx,data)=>{
     console.log(socketId);//每次登录都有一个特定的socketid
     store.set(username,socketId);
     //通知所有登录者
-    console.log(store);
+    console.log(store.state);
     io.broadcast("online", store.state);
+
+
+    //用户退出登录应该是socket断开连接
+    //不能用server.io.on?它会断开所有的server连接？？一个用户退出全部退出??ctx.socket针对某一用户的访问？
+    // server.io.on('disconnect',()=>{
+    ctx.socket.on('disconnect',()=>{
+        //通过socketId寻找对应的用户名findUserBySocketId
+        store.delete(findUserBySocketId(socketId));
+        io.broadcast("online",store.state)
+    })
+})
+
+
+//通过socketId寻找对应的用户名findUserBySocketId
+var findUserBySocketId = socketId => {
+    for(key in store.state){
+        if(store.state[key] == socketId){
+            return key;
+        }
+    }
+}
+server.io.on('exit',(ctx,data)=>{
+    let username = data.username;
+    store.delete(username);
+    console.log(store.state)
+    io.broadcast("online",store.state);
 })
 
 
