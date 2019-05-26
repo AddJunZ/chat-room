@@ -39,4 +39,17 @@ module.exports = {
             delete this.state[name]
         }
     }
+    //没有socketId了，那么自己写一个计数？？
+    // group:{
+    //     state:{},
+    //     get(name){
+    //         return this.state[name]
+    //     },
+    //     set(name,socketId){
+    //         this.state[name] = socketId
+    //     },
+    //     delete(name){
+    //         delete this.state[name]
+    //     }
+    // }
 }

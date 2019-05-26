@@ -1,5 +1,7 @@
 let username = document.querySelector('#username').innerText;
 var socket = io('http://localhost:8080');
+// console.log(socket);
+//前后端，一次连接一个socketId
 socket.on('connect', () => {
     //默认的连接事件
     console.log('连接到服务器');
