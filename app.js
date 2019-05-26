@@ -7,7 +7,8 @@ const io = new IO();
 const render = require('koa-ejs');//模板
 const path = require('path');//为了写模板的路径引入的
 const body = require('koa-better-body');
-const session = require('koa-session');//挂session
+const session = require('koa-session');//挂session，貌似这个例子不需要session其实
+const static = require('koa-static')
 
 
 let {store} = require('./js/store.js');
@@ -42,7 +43,7 @@ render(server,{
 router.use('', require('./routes/index.js'))
 server.use(router.routes())
 server.use(router.allowedMethods())
-
+server.use(static('./static'))
 
 //socket
 io.attach(server);
