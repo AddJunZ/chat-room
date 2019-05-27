@@ -22,5 +22,21 @@ socket.on('connect', () => {
 socket.on('online', data => {
     //同步在线人数
     document.getElementById('active-num').innerText = Object.keys(data).length;
+    //显示可聊天人的列表
+    let inHtml = '';
+    for(key in data){
+        if(key != username)
+        inHtml +=  `<option value=${data[key]}>${key}</option>`
+    }
+    document.getElementById('to-person').innerHTML = inHtml;
 })
+
+let toPerson = ()=>{
+    let socketId = document.getElementById('to-person').value;//socketId
+    let msg = document.getElementById('person-msg').value;
+    socket.emit('toPersonMsg',{
+        socketId:socketId,
+        msg:msg
+    })//不是能传多个的吗
+}
 

@@ -18,7 +18,7 @@ router.post('/choose',async ctx=>{
     //要存session了，方便以后获取总在线人数？
     ctx.session[username] = username;//不用的人村一个session，那么，怎么遍历获取session的总数呢？
     //就算服务关掉重启session也还在的，此时需要监听socket断开，删除对应session
-
+    console.log('-----------------------------------')
     console.log('session实际上就是存在服务端，为所有连接着共享的储存空间？？？',ctx.session);
     await ctx.render('choose',{
         username

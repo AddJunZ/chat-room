@@ -14,15 +14,16 @@
 <body>
     <div>当前在线人数：<span class="bold" id="active-num"></span></div>
     <div><span class="bold" id="username"><%=username%></span>已经成功登录</div>
-
+    <hr/>
     <!-- 选择要和谁聊天，或者加入某个组 -->
-    要和谁私聊<select>
-        <option value="addjun">addjun</option>
-        <!-- 要获得真是的在线对象 -->
-    </select><br/>
-    要进入哪个组聊<select>
-        <option value="addjun组">addjun组</option>
-    </select>
+    要和谁私聊<select id="to-person"></select>
+    <input type="text" id="person-msg">
+    <input type="submit" onclick="toPerson()"><br/>
+    <hr>
+    要进入哪个组聊<select id="to-group"></select>
+    <input type="text" id="group-msg">
+    <input type="submit" onclick="toGroup()"><br/>
+    <hr>
     <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script>
     <script src="/socket.js"></script>
 </body>
