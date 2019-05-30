@@ -93,13 +93,28 @@ server.io.on('toPersonMsg', (ctx, data) => {
     console.log(data);
     // { value: '/#sydq_8zlgu2fIMKIAAAB', msg: '12313' }
     //app._io.to(toId).emit("allMsg", `${username} say to you: ${content}`);
-    let {socketId,msg} = data;
-    console.log('两个socketId是不一样的',socketId,' end ',ctx.socket.socket.id);
+    let { socketId, msg } = data;
+    let ownSocketId = ctx.socket.socket.id;
+    let ownName = findUserBySocketId(ownSocketId);
     let name = findUserBySocketId(socketId);
 
-
+    ctx.socket.emit('personMsg',`you say to ${name}: ${msg}`);
     //这里需要切换到被发消息的那个人的socketId，然后执行emit命令，先不跳试试
-    ctx.socket.emit('updataMsg',``);
+    server._io.to(socketId).emit("personMsg", `${ownName} say to you: ${msg}`);
+
+})
+
+
+//给所有人的回话
+server.io.on('toAllMsg',(ctx,data)=>{
+    let ownSocketId = ctx.socket.socket.id;
+    let ownName = findUserBySocketId(ownSocketId); 
+    let msg = data.msg;   
+    server.io.broadcast('allMsg',`${ownName}对所有人说: ${msg}`);
+})
+
+server.io.on('toPersonFile',(ctx,data)=>{
+    console.log('触发文件上传到用户的服务')
 })
 
 

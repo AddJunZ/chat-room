@@ -24,19 +24,36 @@ socket.on('online', data => {
     document.getElementById('active-num').innerText = Object.keys(data).length;
     //显示可聊天人的列表
     let inHtml = '';
-    for(key in data){
-        if(key != username)
-        inHtml +=  `<option value=${data[key]}>${key}</option>`
+    for (key in data) {
+        if (key != username)
+            inHtml += `<option value=${data[key]}>${key}</option>`
     }
     document.getElementById('to-person').innerHTML = inHtml;
 })
 
-let toPerson = ()=>{
+socket.on('personMsg', data => {
+    // alert('私聊全聊只是to的socketId有没有指定的区别', data);
+    document.getElementById('talk-list').innerHTML += `<li>${data}</li><br/>`;
+})
+
+socket.on('allMsg', data => {
+    document.getElementById('talk-list').innerHTML += `<li>${data}</li><br/>`;
+})
+
+let toPerson = () => {
     let socketId = document.getElementById('to-person').value;//socketId
     let msg = document.getElementById('person-msg').value;
-    socket.emit('toPersonMsg',{
-        socketId:socketId,
-        msg:msg
+    socket.emit('toPersonMsg', {
+        socketId: socketId,
+        msg: msg
     })//不是能传多个的吗
+    document.getElementById('person-msg').value = '';
+}
+let toAll = () =>{
+    let msg = document.getElementById('all-msg').value;
+    socket.emit('toAllMsg', {
+        msg: msg
+    })
+    document.getElementById('all-msg').value = '';
 }
 

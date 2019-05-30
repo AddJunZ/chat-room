@@ -9,11 +9,20 @@
         .bold{
             font-weight: bolder;
         }
+        #talk-list > li{
+            background-color:white;
+            display: inline-block;
+            border:1px solid black;
+            border-radius: 2px;
+            margin:5px 0;
+        }
     </style>
 </head>
 <body>
     <div>当前在线人数：<span class="bold" id="active-num"></span></div>
-    <div><span class="bold" id="username"><%=username%></span>已经成功登录</div>
+    <div><span class="bold" id="username"><%=username%></span>已经成功登录</div> 
+    <hr/>
+    公共聊天室<input type="text" id="all-msg"><input type="submit" onclick="toAll()">
     <hr/>
     <!-- 选择要和谁聊天，或者加入某个组 -->
     要和谁私聊<select id="to-person"></select>
@@ -24,6 +33,7 @@
     <input type="text" id="group-msg">
     <input type="submit" onclick="toGroup()"><br/>
     <hr>
+    <ul id="talk-list"></ul>
     <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script>
     <script src="/socket.js"></script>
 </body>
