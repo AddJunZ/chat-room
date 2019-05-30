@@ -11,7 +11,7 @@ router.get('/',async ctx=>{
 })
 
 //get 和 post都可能用all，但是单独一个就要和表单的请求方式一致
-router.post('/choose',async ctx=>{
+router.all('/choose',async ctx=>{
     // console.log('按道理请求的数据会在这里？',ctx.request.fields);//undefined???
     let {username} = ctx.request.fields;//需要账号,不需要密码现在
 
@@ -26,6 +26,11 @@ router.post('/choose',async ctx=>{
 })
 
 
+router.all('/file',async ctx=>{
+    ctx.body = '上传成功';
+    console.log('我的文件呢',ctx.request.fields);
+    // await ctx.redirect('/choose');
+})
 
 // router.all('/chat',async ctx=>{
 //     ctx.type = 'html',
