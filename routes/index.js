@@ -1,4 +1,5 @@
 const Router = require('koa-router');
+const send = require('koa-send');//下载文件
 const router = new Router();
 
 //所有路由前缀
@@ -26,10 +27,18 @@ router.all('/choose',async ctx=>{
 })
 
 
-router.all('/file',async ctx=>{
+
+//做接口用？
+router.all('/postFile',async ctx=>{
     ctx.body = '上传成功';
     console.log('我的文件呢',ctx.request.fields);
+    console.log('http://localhost:8080/'+ctx.request.fields.f1[0].path);
     // await ctx.redirect('/choose');
+    
+})
+
+router.all('/downloadFile',async ctx =>{
+    ctx.body = '下载成功';
 })
 
 // router.all('/chat',async ctx=>{

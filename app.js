@@ -11,6 +11,7 @@ const session = require('koa-session');//挂session，貌似这个例子不需�
 const static = require('koa-static')
 
 
+
 let { store } = require('./js/store.js');
 
 
@@ -114,7 +115,7 @@ server.io.on('toAllMsg',(ctx,data)=>{
 })
 
 server.io.on('toPersonFile',(ctx,data)=>{
-    console.log('触发文件上传到用户的服务')
+    console.log('触发文件上传到用户的服务');
 })
 
 

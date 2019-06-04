@@ -62,7 +62,7 @@ let toPersonFile = () =>{
     console.log(file);
     formdata.append('f1',file);
     var xhr = new XMLHttpRequest();
-    xhr.open('post','http://localhost:8080/file',true);
+    xhr.open('post','http://localhost:8080/postFile',true);
     xhr.send(formdata);
     xhr.onreadystatechange = function(){
         if(xhr.readyState == 4){
@@ -73,7 +73,8 @@ let toPersonFile = () =>{
             }
         }
     }
-    //用户虽然是传给某一个人，但实际上是上传到服务器，然后提醒对应的用户并且让他再次从服务器上下载文件
-    
+    //用户虽然是传给某一个人，但实际上是上传到服务器，然后提醒对应的用户并且让他再次从服务器上下载文件?
+    //还是直接通过socket传文件？
+
 }
 
