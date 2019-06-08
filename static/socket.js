@@ -41,14 +41,18 @@ socket.on('allMsg', data => {
 })
 
 
-socket.on('downloadFile',data=>{
-    
+socket.on('downloadFile', data => {
+
 })
 
 
 let toPerson = () => {
     let socketId = document.getElementById('to-person').value;//socketId
     let msg = document.getElementById('person-msg').value;
+    if (!msg) {
+        alert('请输入信息');
+        return;
+    }
     socket.emit('toPersonMsg', {
         socketId: socketId,
         msg: msg
@@ -57,6 +61,10 @@ let toPerson = () => {
 }
 let toAll = () => {
     let msg = document.getElementById('all-msg').value;
+    if (!msg) {
+        alert('请输入信息');
+        return;
+    }
     socket.emit('toAllMsg', {
         msg: msg
     })
@@ -69,6 +77,10 @@ let toPersonFile = () => {
     let socketId = document.getElementById('to-person').value;//socketId
     let formdata = new FormData();
     let file = document.querySelector('#file').files[0];
+    if (!file) {
+        alert('请先选择所需上传文件');
+        return;
+    }
     console.log(file);
     formdata.append('f1', file);
     var xhr = new XMLHttpRequest();

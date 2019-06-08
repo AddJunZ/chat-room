@@ -2,6 +2,7 @@ const Router = require('koa-router');
 const send = require('koa-send');//下载文件
 const router = new Router();
 const path = require('path')
+const fs = require('fs')
 
 //所有路由前缀
 // router.prefix('/login');
@@ -27,19 +28,21 @@ router.all('/choose',async ctx=>{
     });
 })
 
-
-
 //做接口用？
 router.all('/postFile',async ctx=>{
     ctx.body = '上传成功';
     console.log('我的文件呢',ctx.request.fields);//这里会又一个文件的路径信息
-
+    var file = ctx.request.fields.f1[0];
     //我直接把路径加到全局里？ctx.fileName = ???
-
-    var aimPath = 'upload' + ctx.request.fields.f1[0].path.split('upload')[1];
-    console.log('文件名'+aimPath);
+    var aimPath = 'upload' + file.path.split('upload')[2];
+    console.log(aimPath);
+    
+    console.log('文件名'+ file.name);
+    //-----重命名时需要看文件里是否有重复的名字，有就要做对应修改(两个都要写绝对路径啊亲！！！)
+    fs.rename(path.join(__dirname,'../static/upload',aimPath),path.join(__dirname,'../static/upload',file.name));
     // 只是作为处理文件上传的部分，要处理文件命名的问题，不处理后期操作，后期操作交给app.js里的server.io去实现
 })
+
 
 router.all('/downloadFile/:name',async ctx =>{
     const name = ctx.params.name;
