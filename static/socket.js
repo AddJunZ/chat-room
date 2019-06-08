@@ -40,6 +40,11 @@ socket.on('allMsg', data => {
     document.getElementById('talk-list').innerHTML += `<li>${data}</li><br/>`;
 })
 
+socket.on('personFile', data => {
+    document.getElementById('talk-list').innerHTML += `<a href="${data}">${data}</a><br/>`;
+})
+
+
 
 socket.on('downloadFile', data => {
 
