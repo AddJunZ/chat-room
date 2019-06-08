@@ -57,6 +57,7 @@ let toAll = () =>{
     document.getElementById('all-msg').value = '';
 }
 let toPersonFile = () =>{
+    let socketId = document.getElementById('to-person').value;//socketId
     let formdata = new FormData();
     let file = document.querySelector('#file').files[0];
     console.log(file);
@@ -68,6 +69,12 @@ let toPersonFile = () =>{
         if(xhr.readyState == 4){
             if(xhr.status == 200){
                 alert('成功')
+                //同时触发server的接受文件事件？是跟post路径不同的一个东西
+                //触发事件的时候，把要传的对象socketId和文件名一起传？
+                socket.emit('toPersonFile',{
+                    socketId:socketId,
+                    fileName:file.name
+                })
             }else{
                 alert('失败')
             }

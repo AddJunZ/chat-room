@@ -99,7 +99,7 @@ server.io.on('toPersonMsg', (ctx, data) => {
     let ownName = findUserBySocketId(ownSocketId);
     let name = findUserBySocketId(socketId);
 
-    ctx.socket.emit('personMsg',`you say to ${name}: ${msg}`);
+    ctx.socket.emit('personMsg', `you say to ${name}: ${msg}`);
     //这里需要切换到被发消息的那个人的socketId，然后执行emit命令，先不跳试试
     server._io.to(socketId).emit("personMsg", `${ownName} say to you: ${msg}`);
 
@@ -107,15 +107,18 @@ server.io.on('toPersonMsg', (ctx, data) => {
 
 
 //给所有人的回话
-server.io.on('toAllMsg',(ctx,data)=>{
+server.io.on('toAllMsg', (ctx, data) => {
     let ownSocketId = ctx.socket.socket.id;
-    let ownName = findUserBySocketId(ownSocketId); 
-    let msg = data.msg;   
-    server.io.broadcast('allMsg',`${ownName}对所有人说: ${msg}`);
+    let ownName = findUserBySocketId(ownSocketId);
+    let msg = data.msg;
+    server.io.broadcast('allMsg', `${ownName}对所有人说: ${msg}`);
 })
 
-server.io.on('toPersonFile',(ctx,data)=>{
+server.io.on('toPersonFile', (ctx, data) => {
     console.log('触发文件上传到用户的服务');
+    let { socketId, fileName } = data;
+    console.log(`'服务器拿到文件对象了,要传给${socketId}，要处理的文件名是${fileName}`);
+    
 })
 
 

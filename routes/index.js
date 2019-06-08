@@ -31,10 +31,14 @@ router.all('/choose',async ctx=>{
 //做接口用？
 router.all('/postFile',async ctx=>{
     ctx.body = '上传成功';
-    console.log('我的文件呢',ctx.request.fields);
-    console.log('http://localhost:8080/'+ctx.request.fields.f1[0].path);
-    // await ctx.redirect('/choose');
-    
+    console.log('我的文件呢',ctx.request.fields);//这里会又一个文件的路径信息
+
+    //我直接把路径加到全局里？ctx.fileName = ???
+
+
+    console.log('文件名'+ctx.request.fields.f1[0].path);
+    // 只是作为处理文件上传的部分，要处理文件命名的问题，不处理后期操作，后期操作交给app.js里的server.io去实现
+    // await send(ctx,)
 })
 
 router.all('/downloadFile',async ctx =>{
