@@ -1,6 +1,7 @@
 const Router = require('koa-router');
 const send = require('koa-send');//下载文件
 const router = new Router();
+const path = require('path')
 
 //所有路由前缀
 // router.prefix('/login');
@@ -35,13 +36,16 @@ router.all('/postFile',async ctx=>{
 
     //我直接把路径加到全局里？ctx.fileName = ???
 
-
-    console.log('文件名'+ctx.request.fields.f1[0].path);
+    var aimPath = 'upload' + ctx.request.fields.f1[0].path.split('upload')[1];
+    console.log('文件名'+aimPath);
     // 只是作为处理文件上传的部分，要处理文件命名的问题，不处理后期操作，后期操作交给app.js里的server.io去实现
-    // await send(ctx,)
 })
 
-router.all('/downloadFile',async ctx =>{
+router.all('/downloadFile/:name',async ctx =>{
+    const name = ctx.params.name;
+    const path =  path.join(__dirname, `static/upload/${name}`);
+    ctx.attachment(path);
+    await send(ctx.path);
     ctx.body = '下载成功';
 })
 

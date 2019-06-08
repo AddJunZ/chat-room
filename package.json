@@ -4,6 +4,7 @@
   "description": "计网课设",
   "main": "app.js",
   "dependencies": {
+    "formidable": "^1.2.1",
     "koa": "^2.7.0",
     "koa-better-body": "^3.0.4",
     "koa-ejs": "^4.2.0",

@@ -9,6 +9,20 @@ const path = require('path');//为了写模板的路径引入的
 const body = require('koa-better-body');
 const session = require('koa-session');//挂session，貌似这个例子不需要session其实
 const static = require('koa-static')
+const IncomingForm = require('formidable');//用来保存后缀的
+const form = new IncomingForm();
+const fs = require('fs')
+
+form.keepExtensions = true
+form.encoding = 'utf-8'
+form.uploadDir = path.join(__dirname, 'static/upload')
+
+
+//上传文件的制定路径
+server.use(body({
+    uploadDir: './static/upload',
+    IncomingForm: form
+}))
 
 
 
@@ -17,10 +31,6 @@ let { store } = require('./js/store.js');
 
 server.keys = ['AddJunZ'];
 
-//上传文件的制定路径
-server.use(body({
-    uploadDir: './static/upload'
-}))
 
 const CONFIG = {
     key: 'AddJunZ',
@@ -118,7 +128,6 @@ server.io.on('toPersonFile', (ctx, data) => {
     console.log('触发文件上传到用户的服务');
     let { socketId, fileName } = data;
     console.log(`'服务器拿到文件对象了,要传给${socketId}，要处理的文件名是${fileName}`);
-    
 })
 
 
