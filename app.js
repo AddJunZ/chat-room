@@ -11,7 +11,6 @@ const session = require('koa-session');//挂session，貌似这个例子不需�
 const static = require('koa-static')
 const IncomingForm = require('formidable');//用来保存后缀的
 const form = new IncomingForm();
-const fs = require('fs')
 
 form.keepExtensions = true
 form.encoding = 'utf-8'
@@ -25,9 +24,9 @@ server.use(body({
 }))
 
 
-
+//用户需要一个，那么小组是不是也需要呢
 let { store } = require('./js/store.js');
-
+let { group } = require('./js/group.js');
 
 server.keys = ['AddJunZ'];
 
@@ -109,19 +108,18 @@ server.io.on('toPersonMsg', (ctx, data) => {
     let ownName = findUserBySocketId(ownSocketId);
     let name = findUserBySocketId(socketId);
 
-    ctx.socket.emit('personMsg', `you say to ${name}: ${msg}`);
+    ctx.socket.emit('personMsg', `你对${name}说 : ${msg}`);
     //这里需要切换到被发消息的那个人的socketId，然后执行emit命令，先不跳试试
-    server._io.to(socketId).emit("personMsg", `${ownName} say to you: ${msg}`);
+    server._io.to(socketId).emit("personMsg", `${ownName}对你说 : ${msg}`);
 
 })
-
 
 //给所有人的回话
 server.io.on('toAllMsg', (ctx, data) => {
     let ownSocketId = ctx.socket.socket.id;
     let ownName = findUserBySocketId(ownSocketId);
     let msg = data.msg;
-    server.io.broadcast('allMsg', `${ownName}对所有人说: ${msg}`);
+    server.io.broadcast('allMsg', `${ownName}对所有人说 : ${msg}`);
 })
 
 server.io.on('toPersonFile', (ctx, data) => {
@@ -132,8 +130,12 @@ server.io.on('toPersonFile', (ctx, data) => {
     let ownSocketId = ctx.socket.socket.id;
     let ownName = findUserBySocketId(ownSocketId);
     let name = findUserBySocketId(socketId);
-    // let msg = ``;
-    server._io.to(socketId).emit('personFile',dlFilePath)//下载的路径
+    server._io.to(socketId).emit('personFile',{
+        dlFilePath:dlFilePath,
+        fileName:fileName,
+        ownName:ownName
+    })//下载的路径
+    ctx.socket.emit('personMsg',`你对${name}发送了文件: ${fileName}`)
 })
 
 

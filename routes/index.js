@@ -36,7 +36,6 @@ router.all('/postFile', async ctx => {
     //我直接把路径加到全局里？ctx.fileName = ???
     var aimPath = 'upload' + file.path.split('upload')[2];
     console.log(aimPath);
-
     console.log('文件名' + file.name);
     //-----重命名时需要看文件里是否有重复的名字，有就要做对应修改(两个都要写绝对路径啊亲！！！)
     fs.rename(path.join(__dirname, '../static/upload', aimPath), path.join(__dirname, '../static/upload', file.name));

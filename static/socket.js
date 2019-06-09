@@ -41,7 +41,7 @@ socket.on('allMsg', data => {
 })
 
 socket.on('personFile', data => {
-    document.getElementById('talk-list').innerHTML += `<a href="${data}">${data}</a><br/>`;
+    document.getElementById('talk-list').innerHTML += `${data.ownName}给你发送了文件，点击下载<a href="${data.dlFilePath}">${data.fileName}</a><br/>`;
 })
 
 
@@ -110,7 +110,4 @@ let toPersonFile = () => {
     //还是直接通过socket传文件？
 }
 
-// let downloadFile = () => {
-//     //直接被动触发
-// }
 
