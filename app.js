@@ -129,6 +129,10 @@ server.io.on('toPersonFile', (ctx, data) => {
     let { socketId, fileName } = data;
     console.log(`'服务器拿到文件对象了,要传给${socketId}，要处理的文件名是${fileName}`);
     let dlFilePath = `http://localhost:8080/downloadFile/${fileName}`;
+    let ownSocketId = ctx.socket.socket.id;
+    let ownName = findUserBySocketId(ownSocketId);
+    let name = findUserBySocketId(socketId);
+    // let msg = ``;
     server._io.to(socketId).emit('personFile',dlFilePath)//下载的路径
 })
 
