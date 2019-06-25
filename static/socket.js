@@ -46,8 +46,6 @@ socket.on('personFile', data => {
 
 
 
-
-
 let toPerson = () => {
     let socketId = document.getElementById('to-person').value;//socketId
     let msg = document.getElementById('person-msg').value;
