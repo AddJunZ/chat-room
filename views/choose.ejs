@@ -36,7 +36,17 @@
         <input type="file" id="file"><input type="submit" value="发送">
     </form> -->
     <hr>
-    要进入哪个组聊<select id="to-group"></select>
+    <!-- 是不是要有一个创建小组的功能呢？
+    <div class="makeGroup">
+        <input type="checkbox" value="123">123<br/>
+    </div>
+    <hr> -->
+    要进入哪个组聊<select id="to-group">
+        <option value=""></option>
+        <option value="GroupA">GroupA</option>
+        <option value="GroupB">GroupB</option>
+    </select>
+    <button onclick="groupCheck()">确定</button>
     <input type="text" id="group-msg">
     <input type="submit" onclick="toGroup()"><br/>
     <hr>

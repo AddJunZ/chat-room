@@ -1,5 +1,5 @@
 let username = document.querySelector('#username').innerText;
-var socket = io('http://localhost:8080');
+var socket = io('http://192.168.1.104:8080');
 // console.log(socket);
 //前后端，一次连接一个socketId
 socket.on('connect', () => {
@@ -46,16 +46,13 @@ socket.on('personFile', data => {
 
 
 
-socket.on('downloadFile', data => {
-
-})
 
 
 let toPerson = () => {
     let socketId = document.getElementById('to-person').value;//socketId
     let msg = document.getElementById('person-msg').value;
     if (!msg) {
-        alert('请输入信息');
+        alert('信息不能为空');
         return;
     }
     socket.emit('toPersonMsg', {
@@ -64,10 +61,42 @@ let toPerson = () => {
     })//不是能传多个的吗
     document.getElementById('person-msg').value = '';
 }
+
+
+let groupCheck = () => {
+    //触发加入组别的事件
+    let groupName = document.getElementById('to-group').value;//socketId
+    if(!groupName){
+        alert('加入的组别不能为空');
+        return;
+    }
+    socket.emit("groupChat", {
+        groupName:groupName
+    });
+}
+
+
+let toGroup = () => {
+    let msg = document.querySelector('#group-msg').value;
+    let groupName = document.getElementById('to-group').value;//socketId
+    if(!groupName){
+        alert('加入的组别不能为空');
+        return;
+    }
+    if (!msg) {
+        alert('信息不能为空');
+        return;
+    }
+    socket.emit('toGroupMsg', {
+        groupName: groupName,
+        msg: msg
+    })//不是能传多个的吗
+    document.getElementById('group-msg').value = '';
+}
 let toAll = () => {
     let msg = document.getElementById('all-msg').value;
     if (!msg) {
-        alert('请输入信息');
+        alert('信息不能为空');
         return;
     }
     socket.emit('toAllMsg', {
@@ -89,7 +118,7 @@ let toPersonFile = () => {
     console.log(file);
     formdata.append('f1', file);
     var xhr = new XMLHttpRequest();
-    xhr.open('post', 'http://localhost:8080/postFile', true);
+    xhr.open('post', 'http://192.168.1.104:8080/postFile', true);
     xhr.send(formdata);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
