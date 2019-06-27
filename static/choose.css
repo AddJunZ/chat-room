@@ -1,0 +1,29 @@
+.bold{
+    font-weight: bolder;
+}
+/* 当前人数 */
+#now-person{
+    position:fixed;
+    bottom:50px;
+    right: 50px;
+}
+/* 你已经登录 */
+#you-person{
+    margin: auto;
+    text-align: center;
+}
+/* 公共聊天室 */
+#you-person > div{
+    border:1px solid plum;
+    display: inline-block;
+    border-radius: 8px;
+    padding: 6px 8px;
+    user-select: none;
+}
+#talk-list > li{
+    background-color:white;
+    display: inline-block;
+    border:1px solid black;
+    border-radius: 2px;
+    margin:5px 0;
+}

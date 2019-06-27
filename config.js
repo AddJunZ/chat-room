@@ -1,3 +1,4 @@
 module.exports = {
-    baseHost:'localhost',
+    host:'localhost',
+    port:8080
 }

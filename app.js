@@ -27,8 +27,6 @@ server.use(body({
 
 //用户需要一个，那么小组是不是也需要呢
 let { store } = require('./js/store.js');
-// let { group } = require('./js/group.js');
-
 server.keys = ['AddJunZ'];
 
 
@@ -78,6 +76,7 @@ server.io.on('connection', ctx => {
     console.log('连接到客户端')
 })
 server.io.on('login', (ctx, data) => {
+    // server.io.broadcast('aaa', `1111111`);
     console.log('login', data);
     // console.log('目前的session',ctx.session)    不是登陆的是没有的//???
     let username = data.username;
@@ -115,18 +114,6 @@ server.io.on('toPersonMsg', (ctx, data) => {
 
 })
 
-// // 群聊
-// let group = {
-//     groupA: "王者组",
-//     groupB: "痒痒鼠"
-// };
-
-// server.io.on('toGroupMsg', async (ctx, data) => {
-//     let { groupName, msg } = data;
-//     await ctx.socket.socket.join(groupName);
-//     let ownName = findUserBySocketId(ctx.socket.socket.id);
-//     server._io.to(groupName).emit('allMsg',`${ownName}对所有人说 : ${msg}`);
-// })
 
 server.io.on('groupChat',(ctx,data)=>{
     let {groupName} = data;
@@ -148,11 +135,13 @@ server.io.on('toAllMsg', (ctx, data) => {
     server.io.broadcast('allMsg', `${ownName}对所有人说 : ${msg}`);
 })
 
+
+
 server.io.on('toPersonFile', (ctx, data) => {
     console.log('触发文件上传到用户的服务');
     let { socketId, fileName } = data;
     console.log(`'服务器拿到文件对象了,要传给${socketId}，要处理的文件名是${fileName}`);
-    let dlFilePath = `http://192.168.1.104:8080/downloadFile/${fileName}`;
+    let dlFilePath = `http://localhost:8080/downloadFile/${fileName}`;
     let ownSocketId = ctx.socket.socket.id;
     let ownName = findUserBySocketId(ownSocketId);
     let name = findUserBySocketId(socketId);
@@ -180,9 +169,6 @@ server.io.on('exit', (ctx, data) => {
     console.log(store.state)
     io.broadcast("online", store.state);
 })
-
-
-
 
 
 //-------------------------------------------------------

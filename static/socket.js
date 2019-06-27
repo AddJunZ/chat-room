@@ -1,5 +1,5 @@
 let username = document.querySelector('#username').innerText;
-var socket = io('http://192.168.1.104:8080');
+var socket = io('http://localhost:8080');
 // console.log(socket);
 //前后端，一次连接一个socketId
 socket.on('connect', () => {
@@ -44,7 +44,13 @@ socket.on('personFile', data => {
     document.getElementById('talk-list').innerHTML += `${data.ownName}给你发送了文件，点击下载<a href="${data.dlFilePath}">${data.fileName}</a><br/>`;
 })
 
+// socket.on('aaa',data=>{
+//     console.log(data,'123');
+// })
 
+// socket.on('bbb',data=>{
+//     console.log(data,'123');
+// })
 
 let toPerson = () => {
     let socketId = document.getElementById('to-person').value;//socketId
@@ -71,6 +77,7 @@ let groupCheck = () => {
     socket.emit("groupChat", {
         groupName:groupName
     });
+    alert(`已加入${groupName}`);
 }
 
 
@@ -116,7 +123,7 @@ let toPersonFile = () => {
     console.log(file);
     formdata.append('f1', file);
     var xhr = new XMLHttpRequest();
-    xhr.open('post', 'http://192.168.1.104:8080/postFile', true);
+    xhr.open('post', 'http://localhost:8080/postFile', true);
     xhr.send(formdata);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
